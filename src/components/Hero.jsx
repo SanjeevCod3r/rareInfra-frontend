@@ -102,7 +102,7 @@ const Hero = () => {
               </h1>
 
               <p className="text-slate-700 text-lg sm:text-xl mb-8 max-w-2xl mx-auto">
-                Buy your dream home online with Refundable policy just like online shopping
+                Buy your dream home online-refundable, like online shopping
               </p>
             </motion.div>
 
