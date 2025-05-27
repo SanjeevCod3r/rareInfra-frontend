@@ -69,7 +69,7 @@ export default function HowItWorks() {
           className="text-center mb-20"
         >
           <span className="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Simple Process</span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">How We Works</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">How We Work</h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto mb-6 rounded-full"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Finding your perfect property is easy with our simple three-step process
