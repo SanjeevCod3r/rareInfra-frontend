@@ -8,7 +8,7 @@ import deepakimage from '../images/deepakimage.jpeg';
 
 export const teamMembers = [
     {
-      name: 'Ravinder Kumar Pal',
+      name: 'Ravinder Pal Singh',
       position: 'Founder & Partner',
       bio: 'I have 15 years of experience in real estate and lead the company’s vision',
       image: ravinderimage,
