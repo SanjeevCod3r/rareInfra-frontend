@@ -21,4 +21,9 @@ export const steps = [
     title: 'Close the Deal',
     description: 'Complete paperwork digitally, get expert guidance from our agents, and secure your dream property with ease.',
   },
+  {
+    icon: FileCheck,
+    title: 'Close the Deal',
+    description: 'Complete paperwork digitally, get expert guidance from our agents, and secure your dream property with ease.',
+  },
 ];
