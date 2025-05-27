@@ -95,9 +95,9 @@ const Hero = () => {
                 <RadialGradient
                   gradient={["circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%"]}
                 >
-                  Where Buying Property Feels Like Online Shopping
+                  Where Buying Property Feels Like
                   <br />
-                  <span className="text-gray-800">The Future of Real Estate</span>
+                  <span className="text-gray-800">Online Shopping</span>
                 </RadialGradient>
               </h1>
 
