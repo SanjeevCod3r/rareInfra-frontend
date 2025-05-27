@@ -89,9 +89,9 @@ const FooterLink = ({ href, children }) => {
 
 // Social Links Component
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter', color: 'bg-[#1DA1F2]', hoverColor: 'hover:bg-[#1DA1F2]/90' },
+  { icon: Twitter, href: 'https://x.com/rareinfra', label: 'Twitter', color: 'bg-[#1DA1F2]', hoverColor: 'hover:bg-[#1DA1F2]/90' },
   { icon: Facebook, href: '#', label: 'Facebook', color: 'bg-[#1877F2]', hoverColor: 'hover:bg-[#1877F2]/90' },
-  { icon: Instagram, href: '#', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
+  { icon: Instagram, href: 'https://www.instagram.com/rareinfra', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
   { icon: Github, href: '#', label: 'GitHub', color: 'bg-[#333]', hoverColor: 'hover:bg-gray-800' },
 ];
 
