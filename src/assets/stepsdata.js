@@ -1,4 +1,4 @@
-import { MapPin, UserPlus, MailCheck, Eye, CreditCard } from 'lucide-react';
+import { MapPin, User, MailCheck, Eye, CreditCard } from 'lucide-react';
 
 export const steps = [
   {
