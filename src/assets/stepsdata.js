@@ -1,4 +1,4 @@
-import { MapPin, User, MailCheck, Eye, CreditCard } from 'lucide-react';
+import { MapPin, UserPlus, MailCheck, Eye, CreditCard } from 'lucide-react';
 
 export const steps = [
   {
@@ -7,7 +7,7 @@ export const steps = [
     description: 'Select your desired location easily from our available options.',
   },
   {
-    icon: User,
+    icon: UserPlus,
     title: 'Online Registration',
     description: 'Quickly register online with your details to reserve your spot.',
   },
