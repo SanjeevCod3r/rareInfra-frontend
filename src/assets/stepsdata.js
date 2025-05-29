@@ -1,29 +1,29 @@
-import { Search, Calendar, FileCheck, Map, Shield } from 'lucide-react';
+import { MapPin, UserPlus, MailCheck, Eye, CreditCard } from 'lucide-react';
 
 export const steps = [
   {
-    icon: Search,
-    title: 'Find Your Property',
-    description: 'Use our AI-powered search to discover properties matching your exact needs.',
+    icon: MapPin,
+    title: 'Find Your Location',
+    description: 'Choose your preferred location using our interactive map and filters.',
   },
   {
-    icon: Calendar,
-    title: 'Schedule a Visit',
-    description: 'Book a tour at your convenience—virtually or in person.',
+    icon: UserPlus,
+    title: 'Online Registration',
+    description: 'Quickly register online with your details to reserve your spot.',
   },
   {
-    icon: Map,
-    title: 'Explore the Area',
-    description: 'Check out neighborhood highlights, schools, transit, and safety ratings.',
+    icon: MailCheck,
+    title: 'Allotment By Mail',
+    description: 'Receive official allotment confirmation directly in your email.',
   },
   {
-    icon: Shield,
-    title: 'Verify & Negotiate',
-    description: 'Let us help verify documents and negotiate the best deal for you.',
+    icon: Eye,
+    title: 'Site Visit',
+    description: 'Schedule a visit to personally inspect the allotted site.',
   },
   {
-    icon: FileCheck,
-    title: 'Close the Deal',
-    description: 'Digitally sign documents and finalize your purchase with confidence.',
+    icon: CreditCard,
+    title: 'Pay 10% or Refund',
+    description: 'Secure your booking with a 10% payment or claim a full refund.',
   },
 ];
