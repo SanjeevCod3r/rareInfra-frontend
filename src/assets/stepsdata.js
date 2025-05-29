@@ -4,7 +4,7 @@ export const steps = [
   {
     icon: MapPin,
     title: 'Find Your Location',
-    description: 'Choose your preferred location using our interactive map and filters.',
+    description: 'Select your desired location easily from our available options.',
   },
   {
     icon: UserPlus,
