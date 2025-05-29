@@ -19,7 +19,7 @@ export const steps = [
   {
     icon: Eye,
     title: 'Site Visit',
-    description: 'Schedule a visit to personally inspect the allotted site.',
+    description: 'Schedule a visit to personally inspect the allotted site and explore the surrounding area',
   },
   {
     icon: CreditCard,
