@@ -7,7 +7,7 @@ export const steps = [
     description: 'Select your desired location easily from our available options.',
   },
   {
-    icon: UserPlus,
+    icon: User,
     title: 'Online Registration',
     description: 'Quickly register online with your details to reserve your spot.',
   },
