@@ -1,18 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
-import { Search, MapPin, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import heroimage from "../assets/images/heroimage.png";
 import { RadialGradient } from "react-text-gradients";
-
-const popularLocations = [
-  "Mumbai",
-  "Delhi",
-  "Bangalore",
-  "Hyderabad",
-  "Chennai"
-];
 
 export const AnimatedContainer = ({ children, distance = 100, direction = "vertical", reverse = false }) => {
   const [inView, setInView] = useState(false);
@@ -57,12 +49,6 @@ export const AnimatedContainer = ({ children, distance = 100, direction = "verti
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const handleSubmit = (location = searchQuery) => {
-    navigate(`/properties?location=${encodeURIComponent(location)}`);
-  };
 
   return (
     <AnimatedContainer distance={50} direction="vertical">
@@ -106,69 +92,28 @@ const Hero = () => {
               </p>
             </motion.div>
 
-            {/* Search Section */}
+            {/* Buttons Section */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="relative max-w-md mx-auto"
+              className="flex justify-center gap-6 max-w-md mx-auto"
             >
-              <div className="flex flex-col md:flex-row gap-4 p-2 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg">
-                <div className="relative flex-1">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={() => setShowSuggestions(true)}
-                    placeholder="Enter location..."
-                    className="w-full pl-10 pr-4 py-3 rounded-xl border-0 bg-white/90 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
-                  />
-                </div>
-                <button
-                  onClick={() => handleSubmit()}
-                  className="md:w-auto w-full bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 
-                    transition-colors flex items-center justify-center gap-2 font-medium shadow-md"
-                >
-                  <Search className="w-5 h-5" />
-                  <span>Search</span>
-                </button>
-              </div>
+              <button
+                onClick={() => navigate("/properties?type=luxury")}
+                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-2xl
+                  hover:from-purple-700 hover:to-pink-700 transition-colors font-semibold shadow-lg"
+              >
+                Luxury
+              </button>
 
-              {/* Location Suggestions */}
-              <AnimatePresence>
-                {showSuggestions && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-lg divide-y divide-gray-100 overflow-hidden"
-                  >
-                    <div className="p-2">
-                      <h3 className="text-xs font-medium text-gray-500 px-3 mb-2">
-                        Popular Locations
-                      </h3>
-                      {popularLocations.map((location) => (
-                        <button
-                          key={location}
-                          onClick={() => {
-                            setSearchQuery(location);
-                            handleSubmit(location);
-                          }}
-                          className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg flex items-center 
-                            justify-between text-gray-700 transition-colors"
-                        >
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                            <span>{location}</span>
-                          </div>
-                          <ArrowRight className="w-4 h-4 text-gray-400" />
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <button
+                onClick={() => navigate("/properties?type=affordable")}
+                className="flex-1 bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-4 rounded-2xl
+                  hover:from-green-700 hover:to-teal-700 transition-colors font-semibold shadow-lg"
+              >
+                Affordable
+              </button>
             </motion.div>
           </div>
         </div>
