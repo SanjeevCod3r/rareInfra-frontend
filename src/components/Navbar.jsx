@@ -307,49 +307,6 @@ const MobileNavLinks = ({
   return (
     <div className="flex flex-col space-y-1 pb-3">
       {/* Enhanced AI Property Hub for Mobile */}
-      <div className="px-3 py-2">
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-          <Link
-            to="/ai-property-hub"
-            onClick={() => setMobileMenuOpen(false)}
-            className={`relative flex items-center gap-3 px-4 py-3.5 rounded-lg shadow-sm transition-all ${
-              isAIHubActive
-                ? "bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-white shadow-md shadow-purple-500/20"
-                : "bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-100"
-            }`}
-          >
-            <div className="relative">
-              <BotMessageSquare className="w-5 h-5" />
-              <motion.div
-                animate={{ rotate: [0, 15, -15, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                }}
-                className="absolute -top-1 -right-1"
-              >
-                <Sparkles className="w-3 h-3 text-yellow-400" />
-              </motion.div>
-            </div>
-            <div className="flex-1">
-              <div className="font-medium text-base">AI Property Hub</div>
-              <div
-                className={`text-xs ${
-                  isAIHubActive ? "text-indigo-100" : "text-indigo-500"
-                }`}
-              >
-                Smart property recommendations
-              </div>
-            </div>
-            {!isAIHubActive && (
-              <span className="px-1.5 py-0.5 bg-yellow-100 text-yellow-800 rounded-full text-[10px] font-bold">
-                NEW
-              </span>
-            )}
-          </Link>
-        </motion.div>
-      </div>
 
       <div className="w-full px-3 py-1">
         <div className="border-t border-gray-100"></div>
