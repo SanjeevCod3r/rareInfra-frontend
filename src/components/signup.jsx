@@ -62,7 +62,7 @@ const Signup = () => {
           <div className="text-center mb-8">
             <Link to="/" className="inline-block">
               <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                BuildEstate
+                RareInfra
               </h2>
             </Link>
             <h2 className="mt-6 text-2xl font-semibold text-gray-800">Create an account</h2>
@@ -85,7 +85,7 @@ const Signup = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
-                  placeholder="John Doe"
+                  placeholder="Your name"
                 />
               </div>
             </div>
