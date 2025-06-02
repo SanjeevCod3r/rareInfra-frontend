@@ -7,13 +7,13 @@ const milestones = [
   {
     icon: Home,
     title: 'Properties Listed',
-    value: 5000,
+    value: 1005,
     description: 'And growing daily',
   },
   {
     icon: Target,
     title: 'Happy Clients',
-    value: 10000,
+    value: 5035,
     description: 'Satisfied customers',
   },
 ];
