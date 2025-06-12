@@ -9,7 +9,7 @@ const SearchBar = ({ onSearch, className }) => {
 
   // Popular locations suggestion
   const popularLocations = [
-   'Mumbai','Goa','Jaipur','Ahmedabad'
+   'Noida','Delhi','Gurugram','Sonipat'
   ];
 
   useEffect(() => {

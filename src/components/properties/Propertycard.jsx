@@ -52,6 +52,13 @@ const PropertyCard = ({ property, viewType }) => {
     }
   };
 
+  // Calculate how many features we'll show
+  const featuresCount = [
+    property.beds !== null,
+    property.baths !== null,
+    true // sqft is always shown
+  ].filter(Boolean).length;
+
   return (
     <motion.div
       layout
@@ -180,24 +187,29 @@ const PropertyCard = ({ property, viewType }) => {
                 </span>
               </div>
             </div>
-            {/* Rest of your price-related content */}
           </div>
         </div>
 
-        {/* Property Features */}
-        <div className="grid grid-cols-3 gap-3 mt-6">
-          <div className="flex flex-col items-center gap-1 bg-blue-50 p-2 rounded-lg">
-            <BedDouble className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium text-gray-600">
-              {property.beds} {property.beds > 1 ? 'Beds' : 'Bed'}
-            </span>
-          </div>
-          <div className="flex flex-col items-center gap-1 bg-blue-50 p-2 rounded-lg">
-            <Bath className="w-5 h-5 text-blue-600" />
-            <span className="text-sm font-medium text-gray-600">
-              {property.baths} {property.baths > 1 ? 'Baths' : 'Bath'}
-            </span>
-          </div>
+        {/* Property Features - Updated with conditional rendering */}
+        <div className={`grid gap-3 mt-6 ${featuresCount === 3 ? 'grid-cols-3' : featuresCount === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          {property.beds !== null && (
+            <div className="flex flex-col items-center gap-1 bg-blue-50 p-2 rounded-lg">
+              <BedDouble className="w-5 h-5 text-blue-600" />
+              <span className="text-sm font-medium text-gray-600">
+                {property.beds} {property.beds > 1 ? 'Beds' : 'Bed'}
+              </span>
+            </div>
+          )}
+          
+          {property.baths !== null && (
+            <div className="flex flex-col items-center gap-1 bg-blue-50 p-2 rounded-lg">
+              <Bath className="w-5 h-5 text-blue-600" />
+              <span className="text-sm font-medium text-gray-600">
+                {property.baths} {property.baths > 1 ? 'Baths' : 'Bath'}
+              </span>
+            </div>
+          )}
+          
           <div className="flex flex-col items-center gap-1 bg-blue-50 p-2 rounded-lg">
             <Maximize className="w-5 h-5 text-blue-600" />
             <span className="text-sm font-medium text-gray-600">

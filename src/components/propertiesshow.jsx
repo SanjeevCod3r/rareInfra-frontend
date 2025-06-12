@@ -191,9 +191,12 @@ const PropertiesShow = () => {
 
   const categories = [
     { id: 'all', label: 'All Properties' },
-    { id: 'apartment', label: 'Apartments' },
+    { id: 'flat', label: 'Flats' },
     { id: 'villa', label: 'Villas' },
-    { id: 'house', label: 'Houses' }
+    { id: 'plot', label: 'Plots' },
+    { id: 'resort', label: 'Resorts' },
+    { id: 'shop', label: 'Shops' },
+    { id: 'office', label: 'Offices' }
   ];
   
   const containerVariants = {
