@@ -65,13 +65,17 @@ const PropertyDetails = () => {
   }, [id]);
 
   const parseAmenities = (amenities) => {
-    if (!amenities || !Array.isArray(amenities)) return [];
+    if (!amenities) return [];
     
+    // If it's already an array, return it
+    if (Array.isArray(amenities)) return amenities;
+    
+    // If it's a string, try to parse it
     try {
-      if (typeof amenities[0] === "string") {
-        return JSON.parse(amenities[0].replace(/'/g, '"'));
+      if (typeof amenities === "string") {
+        return JSON.parse(amenities.replace(/'/g, '"'));
       }
-      return amenities;
+      return [];
     } catch (error) {
       console.error("Error parsing amenities:", error);
       return [];
