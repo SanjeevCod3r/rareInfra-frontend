@@ -1,18 +1,69 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, Clock, Loader, X, Info, CheckCircle, Users, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Backendurl } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, propertyImage, onClose }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     date: '',
     time: '',
-    notes: ''
+    name: '',
+    phone: '',
+    email: ''
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+
+  const validatePersonalInfo = () => {
+    let valid = true;
+    const newErrors = {
+      name: '',
+      email: '',
+      phone: ''
+    };
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required';
+      valid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+      newErrors.name = 'Name should only contain letters and spaces';
+      valid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required';
+      valid = false;
+    } else {
+      const email = formData.email.trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        newErrors.email = 'Please enter a valid email address';
+        valid = false;
+      } else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(email)) {
+        newErrors.email = 'Please enter a valid email format (example@domain.com)';
+        valid = false;
+      }
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      valid = false;
+    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1); // Add step-based UI (1: date/time, 2: notes, 3: confirmation)
+  const [step, setStep] = useState(1); // 1: date/time, 2: personal info, 3: notes/confirmation
   const [isSuccess, setIsSuccess] = useState(false);
 
   // Available time slots from 9 AM to 6 PM
@@ -74,38 +125,23 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        toast.error('Please login to schedule a viewing');
-        return;
-      }
-    
-      setLoading(true);
-      const response = await axios.post(
-        `${Backendurl}/api/appointments/schedule`, 
-        {
-          propertyId,
-          ...formData
-        }, 
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-  
-      if (response.data.success) {
-        setIsSuccess(true);
-        setTimeout(() => {
-          onClose();
-        }, 3000); // Auto close after 3 seconds
-      }
+      await axios.post(`${Backendurl}/api/appointments/schedule`, {
+        propertyId: propertyId,
+        date: formData.date,
+        time: formData.time,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
+      setIsSuccess(true);
+      // Redirect to home page after 3.5 seconds
+      setTimeout(() => {
+        navigate('/'); // Redirect to home page
+      }, 3500);
     } catch (error) {
-      console.error('Scheduling error:', error);
-      const errorMessage = error.response?.data?.message || 'Error scheduling viewing';
-      toast.error(errorMessage);
+      toast.error(error.response?.data?.message || 'Failed to schedule viewing');
     } finally {
       setLoading(false);
     }
@@ -157,7 +193,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-xl font-bold text-gray-900 truncate">Schedule a Viewing</h2>
+                  <h2 className="text-xl font-bold text-gray-900 truncate">Schedule a Call</h2>
                   {propertyTitle && (
                     <p className="text-gray-700 font-medium truncate">{propertyTitle}</p>
                   )}
@@ -186,7 +222,16 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 2 ? 'border-blue-600 bg-blue-50' : 'border-gray-300'}`}>
                       <Info className="w-4 h-4" />
                     </div>
-                    <span className="text-xs">Details</span>
+                    <span className="text-xs">Personal Info</span>
+                  </div>
+                  <div className="flex-1 h-0.5 mx-4 bg-gray-200">
+                    <div className={`h-full bg-blue-600 transition-all duration-300`} style={{ width: step >= 3 ? '100%' : '0%' }}></div>
+                  </div>
+                  <div className={`flex flex-col items-center ${step >= 3 ? 'text-blue-600' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 mb-1 ${step >= 3 ? 'border-blue-600 bg-blue-50' : 'border-gray-300'}`}>
+                      <CheckCircle className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs">Verify</span>
                   </div>
                 </div>
               </div>
@@ -258,13 +303,22 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                       </p>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="flex flex-col lg:flex-row gap-3 pt-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        disabled={loading}
+                        className="lg:w-1/2 order-2 lg:order-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 
+                          transition-colors flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:text-gray-400"
+                      >
+                        Back
+                      </button>
                       <button
                         type="button"
                         onClick={() => canProceedToStep2 && setStep(2)}
                         disabled={!canProceedToStep2 || loading}
-                        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
-                          transition-colors flex items-center justify-center gap-2 disabled:bg-blue-300"
+                        className="lg:w-1/2 order-1 lg:order-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+                          transition-colors flex items-center justify-center gap-2 disabled:bg-blue-400"
                       >
                         Continue
                       </button>
@@ -273,6 +327,133 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                 )}
 
                 {step === 2 && (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-5"
+                  >
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                          setFormData(prev => ({ ...prev, name: value }));
+                          if (!value.trim()) {
+                            setErrors(prev => ({ ...prev, name: 'Full name is required' }));
+                          } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+                            setErrors(prev => ({ ...prev, name: 'Name should only contain letters and spaces' }));
+                          } else {
+                            setErrors(prev => ({ ...prev, name: '' }));
+                          }
+                        }}
+                        className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm ${errors.name ? 'border-red-500' : ''}`}
+                        required
+                        disabled={loading}
+                        placeholder="Enter Your Name"
+                      />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/[^0-9]/g, '');
+                            if (value.length <= 10) {
+                              setFormData(prev => ({ ...prev, phone: value }));
+                              if (!value.trim()) {
+                                setErrors(prev => ({ ...prev, phone: 'Phone number is required' }));
+                              } else if (value.length < 10) {
+                                setErrors(prev => ({ ...prev, phone: 'Please enter 10 digits' }));
+                              } else {
+                                setErrors(prev => ({ ...prev, phone: '' }));
+                              }
+                            }
+                          }}
+                          className={`w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm ${errors.phone ? 'border-red-500' : ''}`}
+                          maxLength="10"
+                          required
+                          disabled={loading}
+                          placeholder="Enter Your Number"
+                        />
+                        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400">
+                          +91
+                        </span>
+                      </div>
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setFormData(prev => ({ ...prev, email: value }));
+                          if (!value.trim()) {
+                            setErrors(prev => ({ ...prev, email: 'Email address is required' }));
+                          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                            setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
+                          } else {
+                            setErrors(prev => ({ ...prev, email: '' }));
+                          }
+                        }}
+                        className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm ${errors.email ? 'border-red-500' : ''}`}
+                        required
+                        disabled={loading}
+                        placeholder="Enter Your Email"
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col lg:flex-row gap-3 pt-3">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        disabled={loading}
+                        className="lg:w-1/2 order-2 lg:order-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 
+                          transition-colors flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:text-gray-400"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (validatePersonalInfo()) {
+                            setStep(3);
+                          }
+                        }}
+                        disabled={loading}
+                        className="lg:w-1/2 order-1 lg:order-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+                          transition-colors flex items-center justify-center gap-2 disabled:bg-blue-400"
+                      >
+                        Continue
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {step === 3 && (
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -300,25 +481,32 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                       </div>
                     </div>
 
-                    <div>
-                      <label className="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                        <span>Additional Notes</span>
-                        <span className="text-gray-400 text-xs">(Optional)</span>
-                      </label>
-                      <textarea
-                        value={formData.notes}
-                        onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
-                        rows={4}
-                        placeholder="Any specific requirements or questions about the property..."
-                        disabled={loading}
-                      />
+                    <div className="bg-blue-50 rounded-lg p-4 mb-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-sm font-medium text-gray-900">Personal Information</h3>
+                        <button 
+                          type="button" 
+                          onClick={() => setStep(2)}
+                          className="text-xs text-blue-600 hover:text-blue-800"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <span className="text-gray-700">{formData.name}</span>
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <span className="text-gray-700">{formData.email}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="text-gray-700">{formData.phone}</span>
+                      </div>
                     </div>
 
                     <div className="flex flex-col lg:flex-row gap-3 pt-3">
                       <button
                         type="button"
-                        onClick={() => setStep(1)}
+                        onClick={() => setStep(2)}
                         disabled={loading}
                         className="lg:w-1/2 order-2 lg:order-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 
                           transition-colors flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:text-gray-400"
@@ -334,10 +522,10 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                         {loading ? (
                           <>
                             <Loader className="w-4 h-4 animate-spin" />
-                            Scheduling...
+                            Submitting...
                           </>
                         ) : (
-                          'Schedule Viewing'
+                          'Submit Information'
                         )}
                       </button>
                     </div>
@@ -355,7 +543,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
               
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Viewing Scheduled!</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Call Scheduled!</h3>
               <p className="text-gray-600 mb-6">
                 We've sent you a confirmation email with all the details.
               </p>
@@ -395,7 +583,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, propertyLocation, property
             <div className="mt-6 pt-4 border-t border-gray-100">
               <div className="flex items-center text-sm text-gray-600">
                 <Users className="w-4 h-4 text-blue-600 mr-2" />
-                <span>A qualified agent will guide you through the viewing</span>
+                <span>A qualified agent will guide you through the Call</span>
               </div>
             </div>
           )}

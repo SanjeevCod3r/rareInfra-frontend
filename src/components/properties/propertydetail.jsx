@@ -372,7 +372,7 @@ const PropertyDetails = () => {
                     justify-center gap-2"
                 >
                   <Calendar className="w-5 h-5" />
-                  Schedule Viewing
+                  Contact Now
                 </button>
               </div>
 

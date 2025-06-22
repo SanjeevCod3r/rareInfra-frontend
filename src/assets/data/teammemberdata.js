@@ -40,18 +40,7 @@ export const teamMembers = [
         instagram: '#',
       },
     },
-    {
-      name: 'S K Riazuddin',
-      position: 'Business Head',
-      bio: 'With 12 years of experience, including 1 year in real estate, driving growth and success',
-      image: riazimage,
-      social: {
-        linkedin: 'https://www.linkedin.com/in/sk-riazuddin-9b79b329/',
-        twitter: 'https://x.com/riazzsk786',
-        instagram: 'https://www.instagram.com/sk.riaz_propusers/#',
-      },
-    },
-    {
+   {
       name: 'Navneet Kumar Singh',
       position: 'Sub Business Head',
       bio: 'With 6 years of experience, supporting company growth and progress',
