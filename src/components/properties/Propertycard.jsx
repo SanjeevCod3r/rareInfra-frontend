@@ -155,6 +155,14 @@ const PropertyCard = ({ property, viewType }) => {
           >
             {property.availability}
           </motion.span>
+          <motion.span 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-gradient-to-r from-pink-500 to-pink-400 text-white 
+              px-3 py-1 rounded-full text-sm font-medium shadow-lg"
+          >
+            {property.affordability}
+          </motion.span>
         </div>
       </div>
 
