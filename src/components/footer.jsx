@@ -206,7 +206,7 @@ const helpLinks = [
   { name: 'Customer Support', href: '/' },
   { name: 'FAQs', href: '/' },
   { name: 'Terms & Conditions', href: '/' },
-  { name: 'Privacy Policy', href: '/' },
+  { name: 'Privacy Policy', href: '/privacy-policy' },
 ];
 
 const contactInfo = [

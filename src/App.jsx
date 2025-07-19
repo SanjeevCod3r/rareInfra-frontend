@@ -12,6 +12,7 @@ import Login from './components/login';
 import Signup from './components/signup';
 import ForgotPassword from './components/forgetpassword';
 import ResetPassword from './components/resetpassword';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Footer from './components/footer';
 import NotFoundPage from './components/Notfound';
 import { AuthProvider } from './context/AuthContext';
@@ -43,6 +44,7 @@ const App = () => {
         <Route path="/about" element={<Aboutus />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/ai-property-hub" element={<AIPropertyHub />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
