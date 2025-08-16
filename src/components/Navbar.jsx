@@ -98,7 +98,7 @@ const Navbar = () => {
               <img src={logo} alt="BuildEstate logo" className="w-6 h-6" />
             </motion.div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:to-blue-600 transition-all duration-300">
-              RareInfra
+              RareInnfra
             </span>
           </Link>
 

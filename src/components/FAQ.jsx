@@ -5,8 +5,8 @@ const FAQ = () => {
 
   const faqItems = [
     {
-      question: "What is RareInfra?",
-      answer: "RareInfra is a platform that connects investors with high-quality real estate investment opportunities. We provide a seamless way to invest in real estate with transparency and ease."
+      question: "What is RareInnfra?",
+      answer: "RareInnfra is a platform that connects investors with high-quality real estate investment opportunities. We provide a seamless way to invest in real estate with transparency and ease."
     },
     {
       question: "How does the investment process work?",

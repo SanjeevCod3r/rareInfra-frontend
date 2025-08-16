@@ -89,9 +89,9 @@ const FooterLink = ({ href, children }) => {
 
 // Social Links Component
 const socialLinks = [
-  { icon: Twitter, href: 'https://x.com/rareinfra', label: 'Twitter', color: 'bg-[#1DA1F2]', hoverColor: 'hover:bg-[#1DA1F2]/90' },
+  { icon: Twitter, href: 'https://x.com/rareinnfra', label: 'Twitter', color: 'bg-[#1DA1F2]', hoverColor: 'hover:bg-[#1DA1F2]/90' },
   { icon: Facebook, href: '#', label: 'Facebook', color: 'bg-[#1877F2]', hoverColor: 'hover:bg-[#1877F2]/90' },
-  { icon: Instagram, href: 'https://www.instagram.com/rareinfra', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
+  { icon: Instagram, href: 'https://www.instagram.com/rareinnfra', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
   { icon: Github, href: '#', label: 'GitHub', color: 'bg-[#333]', hoverColor: 'hover:bg-gray-800' },
 ];
 
@@ -222,8 +222,8 @@ const contactInfo = [
   },
   { 
     icon: Mail, 
-    text: 'support@rareinfra.com',
-    href: 'mailto:support@rareinfra.com' 
+    text: 'support@rareinnfra.com',
+    href: 'mailto:support@rareinnfra.com' 
   },
 ];
 
@@ -240,7 +240,7 @@ const Footer = () => {
                 <Home className="h-6 w-6 text-blue-600" />
               </div>
               <span className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-                RareInfra
+                RareInnfra
               </span>
             </div>
             
@@ -353,7 +353,7 @@ const Footer = () => {
       <div className="bg-gray-100 border-t border-gray-200 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-600 mb-4 md:mb-0 text-center md:text-left">
-            © {new Date().getFullYear()} RareInfra. All Rights Reserved.
+            © {new Date().getFullYear()} RareInnfra. All Rights Reserved.
           </p>
           
           <motion.a

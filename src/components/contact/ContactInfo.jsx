@@ -13,8 +13,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'support@rareinfra.com',
-    link: 'mailto:support@rareinfra.com',
+    content: 'support@rareinnfra.com',
+    link: 'mailto:support@rareinnfra.com',
   },
   {
     icon: MapPin,

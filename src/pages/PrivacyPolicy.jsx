@@ -108,10 +108,10 @@ const PrivacyPolicy = () => {
           <h3 className="text-2xl font-bold mb-2">Still Have Questions?</h3>
           <p className="mb-4">We're here to help. Reach out to us anytime regarding our Privacy Policy.</p>
           <a
-            href="mailto:support@rareinfra.com"
+            href="mailto:support@rareinnfra.com"
             className="inline-block mt-2 bg-white text-blue-700 font-semibold px-6 py-3 rounded hover:bg-gray-100 transition"
           >
-            Contact Us → support@rareinfra.com
+            Contact Us → support@rareinnfra.com
           </a>
         </div>
       </section>
